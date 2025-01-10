@@ -1,0 +1,31 @@
+{
+  "ERROR": {
+    "USER": {
+      "DEMO": "This is a Demo of Error Messages for Users; Your random value is: '{{example}}' | Your message is: '{{example2}}'",
+      "ALREADY_EXISTS": "This element already exists."
+    },
+    "VALIDATION": "Form contains invalid fields, please check your input: {{errors}}"
+  },
+  "ENUMS": {
+    "ActivityMetric": {
+      "default": {
+        "CHAPTERS": "Chapters",
+        "WEB_PAGES": "Web Pages",
+        "TODOS": "Todo-List",
+        "CUSTOM": "Custom"
+      },
+      "items": {
+        "CHAPTERS": "Chapters",
+        "WEB_PAGES": "Web Pages",
+        "TODOS": "Todos",
+        "CUSTOM": "..."
+      },
+      "items_singular": {
+        "CHAPTERS": "Chapter",
+        "WEB_PAGES": "Web Page",
+        "TODOS": "Todo",
+        "CUSTOM": "..."
+      }
+    }
+  }
+}

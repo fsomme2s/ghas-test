@@ -1,0 +1,64 @@
+spring:
+  application:
+    name: "skima-backend"
+  profiles:
+    active: "local"
+  main:
+    banner-mode: off
+  devtools:
+    restart:
+      log-condition-evaluation-delta: false
+
+##############################################
+#
+### Application:
+#
+# see profile specific configs
+
+skima-backend:
+  jwt:
+    token-expiration-after-minutes: 15 # default value should be low; for local dev see application-local.yaml
+
+logging.level:
+  de.conet.isd.skima.skimabackend: info
+
+##############################################
+#
+### Spring Web:
+#
+
+springdoc:
+  api-docs:
+    path: "/api/_openapi/v3/api-docs"
+  swagger-ui:
+    path: "/api/_openapi/swagger-ui.html"
+    persist-authorization: true
+    display-operation-id: true
+
+# Prevent redirect to an /error page:
+spring.autoconfigure.exclude: "org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration"
+server.error:
+  include-stacktrace: never
+  whitelabel: { enabled: false }
+
+##############################################
+#
+# Database:
+#
+
+# Note:
+# spring.datasource.url|username|password: Config on LOCAL done by spring-docker-compose-support
+
+spring.jpa:
+  open-in-view: false
+  hibernate:
+    ddl-auto: none
+  properties:
+    hibernate:
+      format_sql: true
+#      hibernate.generate_statistics: true # Enable this to see performance analysis of each statement (watch out, extremely chatty!)
+
+logging.level.org.hibernate:
+  SQL: debug # enables sql log
+#  orm.jdbc.bind: trace #  enable this to see prepared statement parameter values in log
+

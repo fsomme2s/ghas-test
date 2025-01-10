@@ -1,0 +1,29 @@
+<div>
+  <h1>LOGIN</h1> <!-- TODO check accessibility best practices on header elements -->
+
+  <mat-card appearance="outlined">
+    <mat-card-content>
+      <form [formGroup]="loginForm" class="login-form">
+        <mat-form-field>
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password">
+        </mat-form-field>
+
+        @if (errorMsg) {
+          <div class="errorMsg">
+            {{ errorMsg }}
+          </div>
+        }
+
+        <button mat-raised-button id="LoginButton" (click)="login()">Login</button>
+      </form>
+
+      <p class="version-info">App Version: {{ version }}</p><!-- TODO check accessibility on matTooltip -->
+    </mat-card-content>
+  </mat-card>
+
+</div>

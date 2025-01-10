@@ -1,0 +1,82 @@
+<form [formGroup]="activityForm" (ngSubmit)="onSubmit()">
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>
+        <h2>
+          Plan an activity
+          @if (skillTopic) {
+            to get better in "{{ skillTopic.title }}"
+          }
+        </h2>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+      <!-- title -->
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" placeholder="Read Book X / Udemy Course Y / Online Ressources Z">
+            <mat-error>Please enter a title</mat-error> <!-- todo error types -->
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- Metric -->
+        <div class="col metric">
+          <mat-form-field class="full-width">
+            <mat-label>Progress Metric</mat-label>
+            <mat-select formControlName="metric">
+              @for (metric of activityMetricOptions; track metric) {
+                <mat-option [value]="metric.value">{{ metric.label }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!-- Amount or Subtask List -->
+        @if (!showSubTaskList()) {
+          <div class="col">
+            <mat-form-field class="full-width">
+              <mat-label>Amount of {{ activityMetricOptionsItems.get(selectedMetric) }}</mat-label>
+              <input matInput type="number" step="0.5" formControlName="targetAmount">
+            </mat-form-field>
+          </div>
+        } @else {
+          <div class="col subtasks">
+            <h3>{{ activityMetricOptionsItems.get(selectedMetric) }}:</h3>
+            <div formArrayName="subTasks">
+              @for (subTask of subTasks.controls; track subTask; let i = $index) {
+                <div class="subtask-row">
+                  <mat-form-field>
+                    <mat-label>{{ activityMetricOptionsItemsSingular.get(selectedMetric) }}</mat-label>
+                    <input matInput [formControl]="subTasks.controls[i]">
+                  </mat-form-field>
+                  <button mat-icon-button color="warn" type="button" (click)="removeSubtask(i)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              }
+              <div class="btn-row">
+                <div class="flex-grow"></div>
+                <button mat-mini-fab
+                        attr.aria-label="Add another {{activityMetricOptionsItemsSingular.get(selectedMetric)}} to the list"
+                        type="button"
+                        (click)="addSubtask()"
+                >
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit">Add Activity</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

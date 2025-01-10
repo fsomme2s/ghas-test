@@ -1,0 +1,29 @@
+.skill-body {
+  mat-card {
+    margin-bottom: 16px;
+  }
+}
+
+
+.activities {
+  max-width: 50rem;
+
+  .activity-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+    mat-form-field {
+      flex: 1;
+      margin-right: 10px;
+    }
+  }
+
+
+  .btn-row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+  }
+}

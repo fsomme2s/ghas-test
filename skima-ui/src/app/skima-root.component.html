@@ -1,0 +1,21 @@
+<header>
+  <div class="flex-grow">
+    <a routerLink="/">
+      <h1>Skill Manager</h1>
+    </a>
+  </div>
+  @if (loggedIn) {
+    <button mat-button (click)="logout()">Logout</button>
+  }
+</header>
+<main>
+  <router-outlet></router-outlet>
+</main>
+<!--<h2>Status:</h2>-->
+<!--<ul>-->
+<!--  <li>Env: {{statusDto?.env}}</li>-->
+<!--  <li>Version: {{statusDto?.version}}</li>-->
+<!--  <li>Timestamp: {{statusDto?.versionTimestamp}}</li>-->
+<!--</ul>-->
+<!--<button (click)="testError('UNEXPECTED')">Evil Button!</button>-->
+<!--<button (click)="testError('USER')">Evil Button!</button>-->

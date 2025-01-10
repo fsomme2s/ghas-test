@@ -1,0 +1,58 @@
+<form [formGroup]="skillForm" (ngSubmit)="onSubmit()">
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title><h2>Add a skill</h2></mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+      <!-- title -->
+      <div class="row">
+        <div class="col">
+          <div class="explain-field">
+            What Skill / Topic do you want to get better in? What do you want to achieve?
+          </div>
+          <mat-form-field class="full-width">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title">
+            <mat-error>Please enter a title</mat-error> <!-- todo error types -->
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- certifications -->
+      <div class="row">
+        <div class="col certifications">
+          <h3>Certificaitons</h3>
+          <div class="explain-field">
+            Do you want to get any certifications?
+          </div>
+          <div formArrayName="certifications">
+            @for (certification of certifications.controls; track certification; let i = $index) {
+              <div class="certification-row">
+                <mat-form-field>
+                  <mat-label>Certification</mat-label>
+                  <input matInput [formControl]="certifications.controls[i]" placeholder="Enter certification">
+                  <mat-error>Please enter a name of the certification or remove the row</mat-error> <!-- todo error types -->
+                </mat-form-field>
+                <button mat-icon-button color="warn" type="button" (click)="removeCertification(i)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            }
+            <div class="btn-row">
+              <div class="flex-grow"></div>
+              <button mat-mini-fab aria-label="Add another Certification to the list" type="button"
+                      (click)="addCertification()"
+              >
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit">Create Skill</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

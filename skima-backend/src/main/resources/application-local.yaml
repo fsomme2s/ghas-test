@@ -1,0 +1,12 @@
+skima-backend:
+  app:
+    env: LOCAL
+    instance: 0
+    version: "snapshot"
+    version-timestamp: null
+  jwt:
+    secret-key: "1J30Em/eir+Hm&E7vA4wnrG*c289:'fI/h'Yi?zg91sdCWvS._-mUA?i#K\"cDbPYxfjlTH%#K*8UxWR-w*s6D5xiq#w6*qWG-/%;QWB_/@AV"
+    token-expiration-after-minutes: 600 # 10 hrs for local dev - change to <= 15 to test realistic token timeouts
+
+logging.level:
+  de.conet.isd.skima.skimabackend: debug

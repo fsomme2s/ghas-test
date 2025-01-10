@@ -1,0 +1,9 @@
+# turn off sql logging:
+spring.jpa:
+  properties:
+    hibernate:
+      format_sql: false
+      hibernate.generate_statistics: false
+
+logging.level.org.hibernate.SQL: warn
+

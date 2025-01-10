@@ -1,0 +1,54 @@
+<div class="skima-view">
+
+  @if (!skillTopic || !activities) {
+    <mat-spinner></mat-spinner>
+  } @else {
+    <h2>Skill: {{ skillTopic.title }}</h2>
+
+    <div class="skill-body">
+      <!-- Meta / Form Data -->
+      <mat-card>
+        <mat-card-header>
+          <h3>Certifications</h3>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            You strive for the following certifications: {{ skillTopic.certifications.join(', ') }}
+          </p>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Activities -->
+      <mat-card>
+          <mat-card-header>
+            <h3>Activities</h3>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="activities">
+              @for (activity of activities; track activity) {
+                <div class="activity-row">
+                  {{activity.title}}
+                  @if (hasSubTaskList(activity.metric)) {
+                    ({{activityMetricOptionsItems.get(activity.metric)}}: {{activity.subTasks.join(', ')}})
+                  } @else {
+                    ({{activity.targetAmount}} {{activityMetricOptionsItems.get(activity.metric)}})
+                  }
+                  <button mat-icon-button color="warn" type="button" (click)="removeActivity(activity)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              }
+              <div class="btn-row">
+                <div class="flex-grow"></div>
+                <button mat-mini-fab aria-label="Add another Certification to the list" type="button"
+                        (click)="createActivity()"
+                >
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+            </div>
+          </mat-card-content>
+      </mat-card>
+    </div>
+  }
+</div>

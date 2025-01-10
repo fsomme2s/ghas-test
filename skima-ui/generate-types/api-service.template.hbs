@@ -1,0 +1,76 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable{{#withAsync}}, lastValueFrom{{/withAsync}} } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { {{allUsedTypes}} } from '../model/api.types';
+
+
+
+/**
+ * {{apiDoc}}
+ */
+@Injectable({
+  providedIn: 'root',
+})
+export class {{apiName}} {
+  constructor(
+    //
+    private http: HttpClient,
+  ) {}
+
+{{#operations}}
+
+  {{operationId}}(
+    {{#methodParams}}
+      {{paramName}}{{#paramOpt}}?{{/paramOpt}}: {{paramType}},
+    {{/methodParams}}
+  ): Observable<{{returnType}}{{#isReturnTypeArray}}[]{{/isReturnTypeArray}}> {
+    {{#hasQueryParams}}
+      let params = {};
+      {{#queryParams}}
+        {{#paramOpt}}if ({{paramName}} != null) {{/paramOpt}} params = { ...params, {{paramName}} }
+      {{/queryParams}}
+    {{/hasQueryParams}}
+
+    return this.http.{{method}}{{#unless isTextResponse}}<{{returnType}}{{#isReturnTypeArray}}[]{{/isReturnTypeArray}}>{{/unless}}(
+      `${environment.apiUrl}{{path}}`,
+      {{#hasRequestBody}}{{requestBodyVarName}},{{/hasRequestBody}}
+      {{#hasOptionsObject}}
+        {
+          {{#hasQueryParams}}params,{{/hasQueryParams}}
+          {{#isTextResponse}}responseType: 'text',{{/isTextResponse}}
+        }
+      {{/hasOptionsObject}}
+    );
+  }
+
+  {{#withAsync}}
+    async {{operationId}}$(
+    {{#methodParams}}
+      {{paramName}}{{#paramOpt}}?{{/paramOpt}}: {{paramType}},
+    {{/methodParams}}
+    ): Promise<{{returnType}}{{#isReturnTypeArray}}[]{{/isReturnTypeArray}}> {
+      {{#hasQueryParams}}
+      let params = {};
+        {{#queryParams}}
+          {{#paramOpt}}if ({{paramName}} != null) {{/paramOpt}} params = { ...params, {{paramName}} }
+        {{/queryParams}}
+      {{/hasQueryParams}}
+
+      return lastValueFrom(this.http.{{method}}{{#unless isTextResponse}}<{{returnType}}{{#isReturnTypeArray}}[]{{/isReturnTypeArray}}>{{/unless}}(
+      `${environment.apiUrl}{{path}}`,
+      {{#hasRequestBody}}{{requestBodyVarName}},{{/hasRequestBody}}
+      {{#hasOptionsObject}}
+      {
+          {{#hasQueryParams}}params,{{/hasQueryParams}}
+        {{#isTextResponse}}responseType: 'text',{{/isTextResponse}}
+        }
+      {{/hasOptionsObject}}
+      ));
+      }
+  {{/withAsync}}
+
+
+
+{{/operations}}
+}
